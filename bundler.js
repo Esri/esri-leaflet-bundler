@@ -8,8 +8,18 @@ module.exports = function (options) {
     external: ['leaflet'],
     resolveExternal: function (id) {
       var root = process.cwd();
-      var pkg = path.join(root, 'node_modules', id, 'package.json');
-      var main = JSON.parse(fs.readFileSync(pkg))['jsnext:main'];
+      var pkg = fs.readFileSync(path.join(root, 'node_modules', id, 'package.json'));
+
+      if (!pkg) {
+        throw new Error('Package ' + id + ' is not installed. Try `npm install ' + id + ' --save`.');
+      }
+
+      var main = JSON.parse(pkg)['jsnext:main'];
+
+      if (!main) {
+        throw new Error('package ' + id + ' is not compatable with Esri Leaflet Bundler.');
+      }
+
       return path.join(root, 'node_modules', id, main);
     }
   }).then(function (bundle) {
@@ -22,40 +32,27 @@ module.exports = function (options) {
       }
     });
 
-    if (!options.output && options.sourcemap && options.sourcemap !== 'inline') {
-      console.log('no sourcemap no output');
+    var code = transpiled.code;
+    var map = transpiled.map;
+
+    // throw an error if we try to use external sourcemaps piping to stdout
+    if (!options.output && options.sourcemap !== 'inline') {
       throw new Error('must use inline sourcemap with piping to stdout');
     }
 
-    if (!options.output && options.sourcemap === 'inline') {
-      console.log('w/ sourcemap to stdout');
-      process.stdout.write(transpiled.code + '\n' + transpiled.map.toUrl());
-      return;
-    }
-
-    if (!options.output && !options.sourcemap) {
-      console.log('no sourcemap to stdout');
-      process.stdout.write(transpiled.code);
-      return;
-    }
-
-    if (options.output && options.sourcemap === 'inline') {
-      console.log('inline sourcemap to file');
-      fs.writeFileSync(path.resolve(options.output), transpiled.code + '\n' + transpiled.map.toUrl());
-      return;
-    }
-
-    if (options.output && options.sourcemap) {
-      console.log('external sourcemap to file');
-      fs.writeFileSync(path.resolve(options.output), transpiled.code + '\n//# sourceMappingURL=' + path.resolve(options.sourcemap));
+    // add/generate the sourcemap
+    if (options.sourcemap === 'inline') {
+      code = code + '\n' + map.toUrl();
+    } else if (options.sourcemap) {
+      code + '\n//# sourceMappingURL=' + path.resolve(options.sourcemap);
       fs.writeFileSync(path.resolve(options.sourcemap), transpiled.map);
-      return;
     }
 
+    // generate the code
     if (options.output) {
-      console.log('no sourcemap to file');
-      fs.writeFileSync(path.resolve(options.output), transpiled.code);
-      return;
+      fs.writeFileSync(path.resolve(options.output), code);
+    } else {
+      process.stdout.write(code);
     }
   }).catch(function (error) {
     console.log(error);
