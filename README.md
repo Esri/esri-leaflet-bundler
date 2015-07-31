@@ -7,7 +7,7 @@ Tool for generating custom builds of Esri Leaflet and it's plugins.
 1. Install the Esri Leaflet modules you want to use with NPM and save them in your `package.json`. E.x. `npm install esri-leaflet --save`
 2. Create a file that imports the modules you want and provides a default export.
 
-```
+```js
 // my-custom-build.js
 import {
   featureLayer,
