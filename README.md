@@ -31,7 +31,7 @@ export default {
 
 3. Run `esri-leaflet-bundler my-custom-build.js --output esri-leaflet.js`
 
-## options
+## Options
 
 Option | Default | Description
 --- | --- | ---
@@ -39,7 +39,7 @@ Option | Default | Description
 `-m` `--sourcemap` | false | Output a sourcemap file or `'inline'` for an inline sourcemap.
 `-f` `--format` | `'umd'` | Module format to output too. Defaults to UMD.
 
-## Compatible plugins
+## Compatible Plugins
 
 * Esri Leaflet 2.0.0-beta.5 -`npm install esri-leaflet@2.0.0-beta.5`
 * Esri Leaflet Geocoder 2.0.0-beta.3 -`npm install esri-leaflet-geocoder@2.0.0-beta.3`
