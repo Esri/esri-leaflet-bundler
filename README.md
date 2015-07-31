@@ -29,8 +29,7 @@ Tool for generating custom builds of Esri Leaflet and it's plugins.
     };
     ```
 
-3. Run `npm link` from inside the esri-leaflet-bundler folder
-4. Run `esri-leaflet-bundler my-custom-build.js --output esri-leaflet.js`
+3. Run `esri-leaflet-bundler my-custom-build.js --output esri-leaflet.js`
 
 ## Options
 
