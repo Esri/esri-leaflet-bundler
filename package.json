@@ -7,12 +7,16 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-  "esri-leaflet-bundler": "./bin/cli.js"
-},
+    "esri-leaflet-bundler": "./bin/cli.js"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "rollup": "^0.11.4",
     "yargs": "^3.15.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ArcGIS/esri-leaflet-bundler.git"
   }
 }
