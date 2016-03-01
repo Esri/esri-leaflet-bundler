@@ -1,27 +1,32 @@
 var path = require('path');
 var fs = require('fs');
 var rollup = require('rollup').rollup;
+var arrayify = require('arrayify');
+var nodeResolve = require('rollup-plugin-node-resolve');
+var json = require('rollup-plugin-json');
+var uglify = require('rollup-plugin-uglify');
+
+// var copyright = '/* ' + pkg.name + ' - v' + pkg.version + ' - ' + new Date().toString() + '\n' +
+//                 ' * Copyright (c) ' + new Date().getFullYear() + ' Environmental Systems Research Institute, Inc.\n' +
+//                 ' * ' + pkg.license + ' */';
 
 module.exports = function (options) {
+  var external = arrayify(options.external).push('leaflet');
+  var plugins = [
+    nodeResolve({
+      jsnext: true
+    }),
+    json()
+  ];
+
+  if(options.minify) {
+    plugins.push(uglify())
+  }
+
   rollup({
-    entry: options.entry,
+    entry: path.resolve(process.cwd(), options.entry),
     external: ['leaflet'],
-    resolveExternal: function (id) {
-      var root = process.cwd();
-      var pkg = fs.readFileSync(path.join(root, 'node_modules', id, 'package.json'));
-
-      if (!pkg) {
-        throw new Error('Package ' + id + ' is not installed. Try `npm install ' + id + ' --save`.');
-      }
-
-      var main = JSON.parse(pkg)['jsnext:main'];
-
-      if (!main) {
-        throw new Error('package ' + id + ' is not compatable with Esri Leaflet Bundler.');
-      }
-
-      return path.join(root, 'node_modules', id, main);
-    }
+    plugins: plugins
   }).then(function (bundle) {
     var transpiled = bundle.generate({
       format: options.format || 'umd',
