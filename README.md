@@ -38,6 +38,7 @@ Option | Default | Description
 `-o` `--output` | false | Output file pipes to STDOUT by default.
 `-m` `--sourcemap` | false | Output a sourcemap file or `'inline'` for an inline sourcemap.
 `-f` `--format` | `'umd'` | Module format to output too. Defaults to UMD.
+``--minify` | `false` | Minify the output with Uglify JS.
 
 ## Compatible plugins
 
