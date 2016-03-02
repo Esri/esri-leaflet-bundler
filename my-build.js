@@ -19,3 +19,15 @@ import {
 import {
   query as queryRelated
 } from 'esri-leaflet-related';
+
+export default {
+  featureLayer,
+  basemapLayer,
+  query,
+  geosearch,
+  arcgisOnlineProvider,
+  featureLayerProvider,
+  service,
+  task,
+  queryRelated
+}
