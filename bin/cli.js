@@ -23,11 +23,16 @@ var args = require('yargs')
   .describe('format', 'output module format (amd, cjs, es6, iife, umd)')
   .describe('sourcemap', 'Generate sourcemap (`-m inline` for inline map)')
   .describe('output', 'Output (if absent, prints to stdout)')
+  .describe('minify', 'Minify the output')
   .default('format', 'umd')
+  .default('minify', false)
   .default('sourcemap', false)
   .alias('format', 'f')
   .alias('sourcemap', 'm')
   .alias('output', 'o')
+  .version(function () {
+    return require('../package.json').version;
+  })
   .argv;
 
 args.entry = args._.pop();

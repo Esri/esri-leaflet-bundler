@@ -37,7 +37,8 @@ Option | Default | Description
 --- | --- | ---
 `-o` `--output` | false | Output file pipes to STDOUT by default.
 `-m` `--sourcemap` | false | Output a sourcemap file or `'inline'` for an inline sourcemap.
-`-f` `--format` | `'umd'` | Module format to output. Defaults to UMD.
+`-f` `--format` | `'umd'` | Module format to output too. Defaults to UMD.
+`-minify` | `false` | Minify the output with Uglify JS.
 
 ## Things To Note
 
@@ -45,17 +46,17 @@ Custom modules (like the 'Geocoding' within `L.esri.Geocoding.geosearch`) will b
 
 If you reference both `L.esri.query` and `L.esri.Related.query` in your app, you'll want to remap to avoid a collision
 
-    ```js
-    import {
-      query as queryRelated
-    } from 'esri-leaflet-related';
+```js
+import {
+  query as queryRelated
+} from 'esri-leaflet-related';
 
-    export default {
-      query: query,
-      ...
-      queryRelated: queryRelated
-    };
-    ```
+export default {
+  query: query,
+  ...
+  queryRelated: queryRelated
+};
+```
 
 ## Compatible Plugins
 
