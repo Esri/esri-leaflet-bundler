@@ -1,0 +1,19 @@
+{
+  "name": "esri-leaflet-bundler-sample",
+  "version": "1.0.0",
+  "private": true,
+  "description": "just basemaps",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "john gravois",
+  "license": "Apache-2.0",
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ArcGIS/esri-leaflet-bundler.git"
+  },
+  "devDependencies": {
+    "esri-leaflet": "^2.0.2"
+  }
+}

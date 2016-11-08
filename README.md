@@ -9,20 +9,16 @@ Tool for generating custom builds of Esri Leaflet and it's plugins.
 
     ```js
     // my-custom-build.js
-    import {
-      featureLayer,
-      basemapLayer
-    } from 'esri-leaflet';
-
-    import {
-      geosearch,
-      arcgisOnlineProvider,
-      featureLayerProvider
-    } from 'esri-leaflet-geocoder';
-
+    import { basemapLayer } from './node_modules/esri-leaflet/src/Layers/BasemapLayer.js';
+    import { featureLayer } from './node_modules/esri-leaflet/src/Layers/FeatureLayer/FeatureLayer.js';
+    
+    import { geosearch } from './node_modules/esri-leaflet-geocoder/src/Controls/Geosearch.js';
+    import { arcgisOnlineProvider } from './node_modules/esri-leaflet-geocoder/src/Providers/ArcgisOnlineGeocoder.js';
+    import { featureLayerlineProvider } from './node_modules/esri-leaflet-geocoder/src/Providers/FeatureLayer.js';
+    
     export default {
-      featureLayer: featureLayer,
       basemapLayer: basemapLayer,
+      featureLayer: featureLayer,
       geosearch: geosearch,
       arcgisOnlineProvider: arcgisOnlineProvider,
       featureLayerProvider: featureLayerProvider
@@ -38,7 +34,11 @@ Option | Default | Description
 `-o` `--output` | false | Output file pipes to STDOUT by default.
 `-m` `--sourcemap` | false | Output a sourcemap file or `'inline'` for an inline sourcemap.
 `-f` `--format` | `'umd'` | Module format to output too. Defaults to UMD.
-`-minify` | `false` | Minify the output with Uglify JS.
+`--minify` | `false` | Minify the output with Uglify JS.
+
+## Sample
+
+You can find an example project [here](./example).
 
 ## Things To Note
 
@@ -47,9 +47,7 @@ Custom modules (like the 'Geocoding' within `L.esri.Geocoding.geosearch`) will b
 If you reference both `L.esri.query` and `L.esri.Related.query` in your app, you'll want to remap to avoid a collision
 
 ```js
-import {
-  query as queryRelated
-} from 'esri-leaflet-related';
+import { query as queryRelated } from './node_modules/esri-leaflet-related/src/EsriLeafletRelated.js';
 
 export default {
   query: query,
@@ -60,10 +58,10 @@ export default {
 
 ## Compatible Plugins
 
-* Esri Leaflet [2.0.0-beta.5](https://github.com/Esri/esri-leaflet/releases/tag/v2.0.0-beta.5) -`npm install esri-leaflet@2.0.0-beta.5`
+* Esri Leaflet [2.0.0-beta.5](https://github.com/Esri/esri-leaflet/releases/tag/v2.0.0-beta.5)+ -`npm install esri-leaflet@2.0.0-beta.5`
 * Esri Leaflet Geocoder [2.0.0-beta.3](https://github.com/Esri/esri-leaflet-geocoder/releases/tag/v2.0.0-beta.3) -`npm install esri-leaflet-geocoder@2.0.0-beta.3`
-* Esri Leaflet GP [2.0.0-beta.1](https://github.com/jgravois/esri-leaflet-gp/releases/tag/v2.0.0-beta.1) -`npm install esri-leaflet-gp@2.0.0-beta.1`
-* Esri Leaflet Related [2.0.0-beta.1](https://github.com/jgravois/esri-leaflet-related/releases/tag/v2.0.0-beta.1) -`npm install esri-leaflet-related@2.0.0-beta.1`
+* Esri Leaflet GP [2.0.0-beta.1](https://github.com/jgravois/esri-leaflet-gp/releases/tag/v2.0.0-beta.1)+ -`npm install esri-leaflet-gp@2.0.0-beta.1`
+* Esri Leaflet Related [2.0.0-beta.1](https://github.com/jgravois/esri-leaflet-related/releases/tag/v2.0.0-beta.1)+ -`npm install esri-leaflet-related@2.0.0-beta.1`
 
 ## Contributing
 
